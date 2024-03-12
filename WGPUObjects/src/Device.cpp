@@ -1,5 +1,6 @@
 #include "Device.h"
 #include "Device.h"
+#include "Device.h"
 #include "Logging.h"
 #include <cassert>
 
@@ -92,6 +93,13 @@ void Device::SetInterShaderStageLimits(uint32_t maxInterStageShaderComponents, u
 {
     s_instance.m_limits.limits.maxInterStageShaderComponents = maxInterStageShaderComponents;
     s_instance.m_limits.limits.maxInterStageShaderVariables = maxInterStageShaderVariables;
+}
+
+void Device::SetBindGroupsLimits(uint16_t maxBindGroups, uint16_t maxUniformBuffersPerShader)
+{
+    s_instance.m_limits.limits.maxBindGroups = maxBindGroups;
+    s_instance.m_limits.limits.maxUniformBufferBindingSize = 64; // 16 * float / 4 * vec4f / 1 matrix4f
+    s_instance.m_limits.limits.maxUniformBuffersPerShaderStage = maxUniformBuffersPerShader;
 }
 
 void Device::DefaultLimits()

@@ -24,6 +24,7 @@ public:
 
     static void SetVertexRequiredLimits(uint16_t maxVertexAttribs, uint16_t maxVertexBuffers, uint64_t maxBufferSize, uint16_t maxStride);
     static void SetInterShaderStageLimits(uint32_t maxInterStageShaderComponents, uint32_t maxInterStageShaderVariables);
+    static void SetBindGroupsLimits(uint16_t maxBindGroups, uint16_t maxUniformBuffersPerShader);
 
 
 
