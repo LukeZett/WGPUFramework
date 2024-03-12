@@ -79,6 +79,8 @@ public:
 	~RenderPipeline() {};
 
 private:
+	WGPUPipelineLayoutDescriptor m_layoutDesc = {};
+	WGPUPipelineLayout m_layout = nullptr;
 	WGPURenderPipelineDescriptor m_desc = {};
 	WGPURenderPipeline m_pipeline = nullptr;
 	WGPUBindGroupLayoutDescriptor m_bindGroupLayoutDesc = {};

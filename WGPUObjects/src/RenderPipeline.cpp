@@ -15,6 +15,10 @@ RenderPipeline::RenderPipeline()
 	m_desc.multisample.count = 1;
 	m_desc.multisample.mask = ~0u;
 	m_desc.multisample.alphaToCoverageEnabled = false;
+
+	m_layoutDesc.nextInChain = nullptr;
+	m_layoutDesc.bindGroupLayoutCount = 0;
+	m_layoutDesc.bindGroupLayouts = nullptr;
 }
 
 
@@ -81,6 +85,9 @@ void RenderPipeline::SetTargets(const WGPUTextureFormat* targetFormats, uint32_t
 void RenderPipeline::Reload()
 {
 	if (m_pipeline) wgpuRenderPipelineRelease(m_pipeline);
+	if (m_layout) wgpuPipelineLayoutRelease(m_layout);
 
+	m_layout = wgpuDeviceCreatePipelineLayout(Device::Get(), &m_layoutDesc);
+	m_desc.layout = m_layout;
 	m_pipeline = wgpuDeviceCreateRenderPipeline(Device::Get(), &m_desc);
 }
