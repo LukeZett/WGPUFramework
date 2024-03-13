@@ -50,7 +50,12 @@ public:
 	*/
 	inline void PresentFrame() { wgpuSwapChainPresent(m_swapChain); }
 
+	/**
+	* @brief Get swap chain texture format
+	*/
 	inline const WGPUTextureFormat& GetTextureFormat() const { return m_chainFormat; }
+
+	inline std::tuple<int, int> GetWindowSizes() const { return { m_width, m_height }; }
 
 	/**
 	* @brief initialize swap chain

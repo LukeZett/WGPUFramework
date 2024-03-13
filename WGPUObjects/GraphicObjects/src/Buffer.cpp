@@ -7,6 +7,7 @@ Buffer::Buffer(uint64_t allocationSize, WGPUBufferUsageFlags usage, BufferType t
 	bufferDesc.usage = usage | type;
 	bufferDesc.size = allocationSize;
 	bufferDesc.mappedAtCreation = false;
+	size = allocationSize;
 	buffer = wgpuDeviceCreateBuffer(Device::Get(), &bufferDesc);
 }
 

@@ -102,6 +102,14 @@ void Device::SetBindGroupsLimits(uint16_t maxBindGroups, uint16_t maxUniformBuff
     s_instance.m_limits.limits.maxUniformBuffersPerShaderStage = maxUniformBuffersPerShader;
 }
 
+void Device::SetTextureLimits(uint16_t height, uint16_t width, uint16_t depth, uint16_t textureArrayLayers)
+{
+    s_instance.m_limits.limits.maxTextureDimension1D = height;
+    s_instance.m_limits.limits.maxTextureDimension2D = width;
+    s_instance.m_limits.limits.maxTextureDimension3D = depth;
+    s_instance.m_limits.limits.maxTextureArrayLayers = textureArrayLayers;
+}
+
 void Device::DefaultLimits()
 {
     m_limits.nextInChain = nullptr;

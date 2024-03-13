@@ -1,5 +1,7 @@
 #include "RenderPipeline.h"
-#include "RenderPipeline.h"
+
+void setDefault(WGPUDepthStencilState& depthStencilState); // helper functions for setting depth and stencil testing
+void setDefault(WGPUStencilFaceState& stencilFaceState);
 
 RenderPipeline::RenderPipeline()
 {
@@ -129,6 +131,24 @@ void RenderPipeline::SetBindGroups(WGPURenderPassEncoder encoder)
 	}
 }
 
+void RenderPipeline::SetDepthTesting(WGPUTextureFormat depthFormat, WGPUCompareFunction depthCompFun, bool depthWriting)
+{
+	setDefault(m_depthStencilState);
+	m_depthStencilState.depthCompare = depthCompFun;
+	m_depthStencilState.depthWriteEnabled = depthWriting;
+	m_depthStencilState.format = depthFormat;
+	m_depthStencilState.stencilReadMask = 0;
+	m_depthStencilState.stencilWriteMask = 0;
+
+	m_desc.depthStencil = &m_depthStencilState;
+}
+
+void RenderPipeline::SetDepthTexture(WGPUTextureFormat format, uint32_t width, uint32_t height)
+{
+	m_depthTex.Init(format, width, height, WGPUTextureUsage_RenderAttachment);
+	m_depthTex.CreateView(format);
+}
+
 RenderPipeline::~RenderPipeline()
 {
 	for (auto element : m_bindGroupLayouts)
@@ -139,4 +159,25 @@ RenderPipeline::~RenderPipeline()
 	{
 		delete element;
 	}
+}
+
+
+void setDefault(WGPUStencilFaceState& stencilFaceState) {
+	stencilFaceState.compare = WGPUCompareFunction_Always;
+	stencilFaceState.failOp = WGPUStencilOperation_Keep;
+	stencilFaceState.depthFailOp = WGPUStencilOperation_Keep;
+	stencilFaceState.passOp = WGPUStencilOperation_Keep;
+}
+
+void setDefault(WGPUDepthStencilState& depthStencilState) {
+	depthStencilState.format = WGPUTextureFormat_Undefined;
+	depthStencilState.depthWriteEnabled = false;
+	depthStencilState.depthCompare = WGPUCompareFunction_Always;
+	depthStencilState.stencilReadMask = 0xFFFFFFFF;
+	depthStencilState.stencilWriteMask = 0xFFFFFFFF;
+	depthStencilState.depthBias = 0;
+	depthStencilState.depthBiasSlopeScale = 0;
+	depthStencilState.depthBiasClamp = 0;
+	setDefault(depthStencilState.stencilFront);
+	setDefault(depthStencilState.stencilBack);
 }

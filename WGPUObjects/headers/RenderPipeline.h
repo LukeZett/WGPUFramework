@@ -8,6 +8,7 @@
 #include "Buffer.h"
 #include "BindGroup.h"
 #include "BindGroupLayout.h"
+#include "Texture.h"
 
 enum CullMode
 {
@@ -80,10 +81,16 @@ public:
 
 	void SetBindGroups(WGPURenderPassEncoder encoder);
 
-	~RenderPipeline();
+	void SetDepthTesting(WGPUTextureFormat depthFormat, WGPUCompareFunction depthCompFun, bool depthWriting);
 
+	void SetDepthTexture(WGPUTextureFormat format, uint32_t width, uint32_t height);
+
+	inline Texture& GetDepthTexture() { return m_depthTex; }
+
+	~RenderPipeline();
 private:
-	
+
+	Texture m_depthTex;
 	std::vector<BindGroupLayout*> m_bindGroupLayouts;
 	std::vector<WGPUBindGroupLayout> m_bindGroupLayoutObjects;
 
@@ -100,6 +107,8 @@ private:
 	WGPUFragmentState m_fragmentState{};
 	WGPUBlendState m_blendState{};
 	WGPUColorTargetState m_colorTarget[8];
+
+	WGPUDepthStencilState m_depthStencilState;
 };
 
 

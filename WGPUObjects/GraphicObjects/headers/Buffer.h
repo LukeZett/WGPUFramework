@@ -54,14 +54,12 @@ inline Buffer::Buffer(const std::vector<T> data, WGPUBufferUsageFlags usage, Buf
 template<typename T>
 inline void Buffer::Upload(const std::vector<T>& elements, uint32_t startOffset)
 {
-	size += elements.size() * sizeof(T);
 	wgpuQueueWriteBuffer(Device::GetQueue(), buffer, sizeof(T) * (uint64_t)startOffset, &elements[0], elements.size() * sizeof(T));
 }
 
 template<typename S>
 inline void Buffer::Upload(const S* data, uint64_t length, uint64_t startOffset)
 {
-	size += length * sizeof(S);
 	wgpuQueueWriteBuffer(Device::GetQueue(), buffer, startOffset * sizeof(S), data, length * sizeof(S));
 }
 

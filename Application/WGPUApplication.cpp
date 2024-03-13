@@ -51,3 +51,11 @@ bool WGPUApplication::DrawFrame()
 	Update(1);
 	return true;
 }
+
+void WGPUApplication::UseDepthTesting()
+{
+	auto dimensions = m_window.GetWindowSizes();
+	m_pipeline.SetDepthTesting(WGPUTextureFormat_Depth24Plus, WGPUCompareFunction_LessEqual, true);
+	m_pipeline.SetDepthTexture(WGPUTextureFormat_Depth24Plus, get<0>(dimensions), get<1>(dimensions));
+	m_renderPass.UseDepthTesting(m_pipeline.GetDepthTexture().GetView());
+}

@@ -20,8 +20,8 @@ enum BindingType
 {
 	UniformBuffer = WGPUBufferBindingType_Uniform,
 	Sampler,
-	StorageTexture,
-	Texture
+	StorageTex,
+	Tex
 };
 
 
@@ -70,9 +70,9 @@ inline void BindGroupLayout::AddBindingLayout(BindingType type, uint16_t binding
 		break;
 	case Sampler:
 		break;
-	case StorageTexture:
+	case StorageTex:
 		break;
-	case Texture:
+	case Tex:
 		break;
 	default:
 		break;

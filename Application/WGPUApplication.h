@@ -60,6 +60,8 @@ public:
 	*/
 	virtual void Update(float deltaTime) {};
 
+	void UseDepthTesting();
+
 protected:
 	std::vector<RenderPipeline*> m_pipelines;
 	RenderPipeline m_pipeline;

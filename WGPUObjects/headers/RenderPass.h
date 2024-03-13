@@ -10,6 +10,8 @@ class RenderPass : Uncopyable
 public:
 
 	inline void SetClearColor(glm::vec4 clearColor) { m_attachments.clearValue = WGPUColor{ clearColor.r, clearColor.g, clearColor.b, clearColor.a }; }
+
+	inline void UseDepthTesting(WGPUTextureView depthView);
 	
 	inline WGPURenderPassEncoder BeginRenderPass(WGPUTextureView target);
 	
@@ -20,6 +22,7 @@ private:
 	WGPURenderPassColorAttachment m_attachments = {};
 	WGPURenderPassEncoder m_encoder = nullptr;
 	WGPUCommandBufferDescriptor m_commandDesc = {};
+	WGPURenderPassDepthStencilAttachment m_depthAttachments = {};
 
 public:
 	RenderPass()
@@ -40,6 +43,30 @@ public:
 		m_commandDesc.label = "Finish RenderPass";
 	}
 };
+
+inline void RenderPass::UseDepthTesting(WGPUTextureView depthView)
+{
+	m_depthAttachments.view = depthView;
+	m_depthAttachments.depthClearValue = 1.0f;
+	m_depthAttachments.depthLoadOp = WGPULoadOp_Clear;
+	m_depthAttachments.depthStoreOp = WGPUStoreOp_Store;
+	m_depthAttachments.depthReadOnly = false;
+
+	m_depthAttachments.stencilClearValue = 0;
+	m_depthAttachments.stencilLoadOp = WGPULoadOp_Clear;
+	m_depthAttachments.stencilStoreOp = WGPUStoreOp_Store;
+
+#ifdef WEBGPU_BACKEND_DAWN
+	m_depthAttachments.stencilLoadOp = WGPULoadOp_Undefined;
+	m_depthAttachments.stencilStoreOp = WGPUStoreOp_Undefined;
+	constexpr auto NaNf = std::numeric_limits<float>::quiet_NaN();
+	m_depthAttachments.clearDepth = NaNf;
+#endif // DAWN
+
+	m_depthAttachments.stencilReadOnly = true;
+
+	m_desc.depthStencilAttachment = &m_depthAttachments;
+}
 
 inline WGPURenderPassEncoder RenderPass::BeginRenderPass(WGPUTextureView target)
 {

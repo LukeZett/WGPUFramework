@@ -26,7 +26,9 @@ add_library(WGPUframework
     "utilities/Uncopyable.h" 
     "WGPUObjects/headers/BindGroupLayout.h"
     "WGPUObjects/headers/BindGroup.h"
-    "Assets/FPSCamera.h")
+    "Assets/FPSCamera.h"
+    "WGPUObjects/GraphicObjects/headers/Texture.h"
+    "Assets/tiny_obj_loader.h" "Assets/Object3D.h" "Assets/src/Object3D.cpp")
 
 target_include_directories(WGPUframework PUBLIC utilities)
 target_include_directories(WGPUframework PUBLIC Assets)
