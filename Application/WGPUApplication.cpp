@@ -38,6 +38,7 @@ bool WGPUApplication::DrawFrame()
 	}
 	auto renderPassEncoder = m_renderPass.BeginRenderPass(nextTexture);
 	wgpuRenderPassEncoderSetPipeline(renderPassEncoder, m_pipeline.Get());
+	m_pipeline.SetBindGroups(renderPassEncoder);
 
 	//draw here
 
@@ -47,5 +48,6 @@ bool WGPUApplication::DrawFrame()
 	wgpuTextureViewRelease(nextTexture);
 	m_window.PresentFrame();
 	m_window.PollEvents();
+	Update(1);
 	return true;
 }

@@ -55,6 +55,11 @@ public:
 	/** @brief Virtual function used to perform draw calls in single frame by client application */
 	virtual void DrawCalls(WGPURenderPassEncoder& renderEncoder) {};
 
+	/** @brief Virtual function used for updating application state each frame
+	* @param deltaTime time since last frame update in milliseconds
+	*/
+	virtual void Update(float deltaTime) {};
+
 protected:
 	std::vector<RenderPipeline*> m_pipelines;
 	RenderPipeline m_pipeline;

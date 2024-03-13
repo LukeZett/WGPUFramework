@@ -6,6 +6,8 @@
 #include "Shader.h"
 #include "Uncopyable.h"
 #include "Buffer.h"
+#include "BindGroup.h"
+#include "BindGroupLayout.h"
 
 enum CullMode
 {
@@ -68,20 +70,32 @@ public:
 	*/
 	void SetTargets(const WGPUTextureFormat* targetFormats, uint32_t count);
 
+	uint32_t AddBindGroupLayout();
 
-	void SetBindingLayout(Buffer& u);
-
+	void AddUniformToGroup(uint32_t groupID, uint16_t bindingIndex, Buffer& buffer, ShaderAccess access, uint64_t uniformSize, uint64_t offset);
 
 	void Reload();
 
 	WGPURenderPipeline Get() { return m_pipeline; }
 
-	~RenderPipeline() {};
+	void SetBindGroups(WGPURenderPassEncoder encoder);
+
+	~RenderPipeline();
 
 private:
+	
+	std::vector<BindGroupLayout*> m_bindGroupLayouts;
+	std::vector<WGPUBindGroupLayout> m_bindGroupLayoutObjects;
+
+	std::vector<BindGroup*> m_bindGroups;
+	std::vector<WGPUBindGroup> m_bindGroupObjects;
+
+	WGPUPipelineLayoutDescriptor m_layoutDesc = {};
+	WGPUPipelineLayout m_layout = nullptr;
+	
 	WGPURenderPipelineDescriptor m_desc = {};
+	
 	WGPURenderPipeline m_pipeline = nullptr;
-	WGPUBindGroupLayoutDescriptor m_bindGroupLayoutDesc = {};
 
 	WGPUFragmentState m_fragmentState{};
 	WGPUBlendState m_blendState{};
