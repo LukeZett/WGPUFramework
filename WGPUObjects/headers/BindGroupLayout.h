@@ -2,18 +2,18 @@
 #define WGPUF_BINDGROUPLAYOUT
 
 
-
 #include <vector>
 #include "webgpu/webgpu.h"
 #include "Device.h"
+#include "Uncopyable.h"
 
 
 enum ShaderAccess
 {
-	Vertex = WGPUShaderStage_Vertex,
-	Fragment = WGPUShaderStage_Fragment,
-	Compute = WGPUShaderStage_Compute,
-	None = WGPUShaderStage_None,
+	VertexShader = WGPUShaderStage_Vertex,
+	FragmentShader = WGPUShaderStage_Fragment,
+	ComputeShader = WGPUShaderStage_Compute,
+	//None = WGPUShaderStage_None,
 };
 
 enum BindingType
@@ -47,7 +47,7 @@ private:
 
 
 
-BindGroupLayout::BindGroupLayout()
+inline BindGroupLayout::BindGroupLayout()
 {
 	m_desc.nextInChain = nullptr;
 	m_desc.entryCount = 0;
@@ -60,6 +60,7 @@ inline void BindGroupLayout::AddBindingLayout(BindingType type, uint16_t binding
 	auto& bindingLayout = m_entries.back();
 	setDefault(bindingLayout);
 	bindingLayout.binding = bindingIndex;
+	bindingLayout.visibility = access;
 
 	switch (type)
 	{

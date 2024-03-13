@@ -25,9 +25,11 @@ add_library(WGPUframework
     "WGPUObjects/GraphicObjects/headers/BufferLayout.h" 
     "utilities/Uncopyable.h" 
     "WGPUObjects/headers/BindGroupLayout.h"
-    "WGPUObjects/headers/BindGroup.h")
+    "WGPUObjects/headers/BindGroup.h"
+    "Assets/FPSCamera.h")
 
 target_include_directories(WGPUframework PUBLIC utilities)
+target_include_directories(WGPUframework PUBLIC Assets)
 target_include_directories(WGPUframework PUBLIC Application)
 target_include_directories(WGPUframework PUBLIC WGPUObjects/headers)
 target_include_directories(WGPUframework PUBLIC WGPUObjects/GraphicObjects/headers)

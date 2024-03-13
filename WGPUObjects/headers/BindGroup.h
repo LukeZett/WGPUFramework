@@ -6,8 +6,9 @@
 #include "Device.h"
 #include <vector>
 #include "Buffer.h"
+#include "Uncopyable.h"
 
-class BindGroup
+class BindGroup : Uncopyable
 {
 public:
 	BindGroup();
@@ -24,10 +25,9 @@ private:
 	WGPUBindGroup m_bindGroup = nullptr;
 };
 
-BindGroup::BindGroup()
+inline BindGroup::BindGroup()
 {
 	m_desc.nextInChain = nullptr;
-	//.layout
 }
 
 inline void BindGroup::AddUniformBinding(uint16_t bindingIndex, Buffer& uniformBuffer, uint64_t offset, uint64_t uniformSize)
@@ -51,7 +51,7 @@ inline WGPUBindGroup BindGroup::GetBindGroup(WGPUBindGroupLayout layout)
 }
 
 
-BindGroup::~BindGroup()
+inline BindGroup::~BindGroup()
 {
 	if (m_bindGroup != nullptr) wgpuBindGroupRelease(m_bindGroup);
 }

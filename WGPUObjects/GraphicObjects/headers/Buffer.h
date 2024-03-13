@@ -62,7 +62,7 @@ template<typename S>
 inline void Buffer::Upload(const S* data, uint64_t length, uint64_t startOffset)
 {
 	size += length * sizeof(S);
-	wgpuQueueWriteBuffer(Device::GetQueue(), buffer, startOffset, data, length * sizeof(S));
+	wgpuQueueWriteBuffer(Device::GetQueue(), buffer, startOffset * sizeof(S), data, length * sizeof(S));
 }
 
 #endif // !WGPUFbuffer
