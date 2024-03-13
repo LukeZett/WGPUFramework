@@ -1,6 +1,12 @@
+#ifndef WGPUF_BINDGROUPLAYOUT
+#define WGPUF_BINDGROUPLAYOUT
+
+
+
 #include <vector>
 #include "webgpu/webgpu.h"
 #include "Device.h"
+
 
 enum ShaderAccess
 {
@@ -22,11 +28,13 @@ enum BindingType
 class BindGroupLayout : Uncopyable
 {
 public:
+
 	BindGroupLayout();
 
 	void AddBindingLayout(BindingType type, uint16_t bindingIndex, ShaderAccess access, uint64_t minBindingSize = 0);
 
 	WGPUBindGroupLayout GetGroupLayout();
+
 	~BindGroupLayout();
 
 private:
@@ -36,8 +44,6 @@ private:
 
 	void setDefault(WGPUBindGroupLayoutEntry& bindingLayout);
 };
-
-
 
 
 
@@ -107,3 +113,5 @@ inline void BindGroupLayout::setDefault(WGPUBindGroupLayoutEntry& bindingLayout)
 	bindingLayout.texture.sampleType = WGPUTextureSampleType_Undefined;
 	bindingLayout.texture.viewDimension = WGPUTextureViewDimension_Undefined;
 }
+
+#endif // !WGPUF_BINDGROUPLAYOUT

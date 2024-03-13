@@ -15,7 +15,17 @@ add_library(WGPUframework
     "WGPUObjects/src/Adapter.cpp"
     "WGPUObjects/headers/Device.h"
     "WGPUObjects/src/Device.cpp"
-    "WGPUObjects/headers/RenderPass.h" "WGPUObjects/headers/RenderPipeline.h" "WGPUObjects/GraphicObjects/headers/Shader.h" "WGPUObjects/GraphicObjects/src/Shader.cpp" "WGPUObjects/src/RenderPipeline.cpp" "WGPUObjects/GraphicObjects/headers/Buffer.h" "WGPUObjects/GraphicObjects/src/Buffer.cpp" "WGPUObjects/GraphicObjects/headers/BufferLayout.h" "utilities/Uncopyable.h" "WGPUObjects/headers/BindGroupLayout.h")
+    "WGPUObjects/headers/RenderPass.h"
+    "WGPUObjects/headers/RenderPipeline.h" 
+    "WGPUObjects/GraphicObjects/headers/Shader.h" 
+    "WGPUObjects/GraphicObjects/src/Shader.cpp" 
+    "WGPUObjects/src/RenderPipeline.cpp" 
+    "WGPUObjects/GraphicObjects/headers/Buffer.h" 
+    "WGPUObjects/GraphicObjects/src/Buffer.cpp" 
+    "WGPUObjects/GraphicObjects/headers/BufferLayout.h" 
+    "utilities/Uncopyable.h" 
+    "WGPUObjects/headers/BindGroupLayout.h"
+    "WGPUObjects/headers/BindGroup.h")
 
 target_include_directories(WGPUframework PUBLIC utilities)
 target_include_directories(WGPUframework PUBLIC Application)
